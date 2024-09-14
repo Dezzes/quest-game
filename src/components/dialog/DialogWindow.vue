@@ -21,8 +21,9 @@
                 <DialogItem
                     v-for="(answer, idx) in data.answers"
                     :key="`${idx}-DialogItem`"
+                    :data="data"
                     :item="answer"
-                    @click="handleUserAnswer(answer)"
+                    @user-answer="onUserAnswer(answer)"
                 />
             </div>
         </div>
@@ -55,7 +56,7 @@ export default {
     },
 
     methods: {
-        handleUserAnswer(userAnswer) {
+        onUserAnswer(userAnswer) {
             if (this.data.correctAnswer === userAnswer) {
                 this.$emit('answer', this.data);
             }

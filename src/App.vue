@@ -18,13 +18,26 @@
                 @click="onQuestItemClick(item)"
                 @mouseenter="handleHover(item, $event)"
                 @mouseleave="handleLeave(item)"
-            />
+            >
+                <img
+                    src="/src/assets/img/wood.png"
+                    alt="wood"
+                    :class="$style.wood"
+                />
+            </GameItem>
 
             <Tooltip
                 ref="tooltip"
+                :data="tooltipData"
+                :is-show="Boolean(hoveredItem)"
                 :style="position"
-                :class="[$style.tooltip, {[$style._show]: hoveredItem}]"
-            />
+            >
+                <img
+                    src="@/assets/img/tooltip-img.png"
+                    alt="tooltip-img"
+                    :class="$style.tooltipImg"
+                />
+            </Tooltip>
         </GameScene>
     </div>
 </template>
@@ -36,11 +49,17 @@ import { gsap } from "gsap";
 //Components
 import DialogWindow from '@/components/dialog/DialogWindow.vue';
 import GameItem from '@/components/GameItem.vue';
+import Tooltip from '@/components/dialog/Tooltip.vue';
+import GameScene from '@/components/Layouts/GameScene.vue';
 
 //Constants
 import { gameData } from '@/assets/constants/gameData.js';
-import Tooltip from '@/components/dialog/Tooltip.vue';
-import GameScene from '@/components/Layouts/GameScene.vue';
+//Constants
+
+const tooltipData = {
+    title: 'Доска',
+    desc: 'Она очень деревянная и лежит прямо тут. Множество досок образуют мост, что поможет попасть на другую сторону',
+}
 
 export default {
     name: 'App',
@@ -59,6 +78,7 @@ export default {
             currentItemData: null,
 
             gameData,
+            tooltipData,
 
             tooltipHeight: 0,
             tooltipWidth: 0,
@@ -127,14 +147,6 @@ export default {
                 left: x + 'px',
             };
         },
-
-        // tooltipPosition() {
-        //
-        //     return {
-        //         top: `${this.hoveredItem?.initialPosition?.top - 200}px`,
-        //         left: `${this.hoveredItem?.initialPosition?.left - 200}px`
-        //     }
-        // },
     },
 
     methods: {
@@ -173,6 +185,8 @@ export default {
                 top: `${item.finalPosition?.top}px`,
                 left: `${item.finalPosition?.left}px`,
                 pointerEvents: 'none',
+                width: 187,
+                height: 133,
                 zIndex: 1000,
                 duration: 2, // Длительность анимации в секундах
                 ease: "power2.out", // Плавная анимация в конце
@@ -191,12 +205,13 @@ export default {
 
             if(el) {
                 el.style.animation = 'none';
-                el.style.zIndex = 5;
+                el.style.zIndex = 1;
             }
         },
 
         onUserCorrectAnswer(gameObjectData) {
-            this.animateItem(gameObjectData)
+            this.animateItem(gameObjectData);
+
             this.showDialog = false;
         },
 
@@ -229,11 +244,19 @@ export default {
         overflow: hidden;
     }
 
-    .tooltip {
-        opacity: 0;
+    .tooltipImg {
+        position: absolute;
+        top: -14px;
+        left: -50px;
+        width: 75px;
+        height: 75px;
+        border-radius: 12px;
+        border: 2px solid $dark-blue;
+        box-shadow: 0 0 4px 2px $orange;
+    }
 
-        &._show {
-            opacity: 1;
-        }
+    .wood {
+        width: 100%;
+        height: 100%;
     }
 </style>

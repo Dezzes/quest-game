@@ -1,5 +1,8 @@
 <template>
-    <div :class="$style.DialogItem">
+    <div
+        :class="[$style.DialogItem, {[ $style._invalid]: isWrongAnswerClicked}]"
+        @click="handleClick"
+    >
         <p :class="$style.text">
             {{ item }}
         </p>
@@ -14,6 +17,31 @@ export default {
         item: {
             type: String,
             default: "",
+        },
+
+        data: {
+            type: Object,
+            default: () => ({}),
+        },
+    },
+
+    data() {
+        return {
+            isWrongAnswerClicked: false,
+        }
+    },
+
+    methods: {
+        handleClick(userAnswer) {
+            this.$emit('user-answer', this.item);
+
+            if (this.data.correctAnswer !== userAnswer) {
+                this.isWrongAnswerClicked = true;
+
+                setTimeout(() => {
+                    this.isWrongAnswerClicked = false;
+                }, 1000)
+            }
         }
     }
 }
@@ -31,6 +59,14 @@ export default {
         transition: .2s ease-in-out background-color;
         user-select: none;
         cursor: pointer;
+
+        &._invalid {
+            background-color: darkred;
+
+            &:hover {
+                background-color: darkred;
+            }
+        }
 
         &:hover {
             background-color: $orange;

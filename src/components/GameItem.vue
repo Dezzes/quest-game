@@ -1,10 +1,5 @@
 <template>
     <div :class="$style.GameItem">
-        <img
-            src="/src/assets/img/wood.png"
-            alt="wood"
-        />
-
         <slot/>
     </div>
 </template>

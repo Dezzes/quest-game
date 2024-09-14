@@ -1,29 +1,38 @@
 <template>
-    <div :class="$style.Tooltip">
-        <h4 :class="$style.tooltipTitle">
-            {{ tooltipTitle }}
+    <div :class="[$style.Tooltip, {[$style._show]: isShow}]">
+        <h4
+            v-if="data.title"
+            :class="$style.tooltipTitle"
+        >
+            {{ data.title }}
         </h4>
 
-        <hr/>
+        <hr v-if="data.desc"/>
 
-        <p :class="$style.tooltipMessage">
-            {{ tooltipDesc }}
+        <p
+            v-if="data.desc"
+            :class="$style.tooltipMessage"
+        >
+            {{ data.desc }}
         </p>
+
+        <slot/>
     </div>
 </template>
 
 <script>
-//Constants
-const tooltipTitle = 'Доска';
-const tooltipDesc = 'Она очень деревянная и лежит прямо тут. Множество досок образуют мост, что поможет попасть на другую сторону';
-
 export default {
     name: 'Tooltip',
 
-    data() {
-        return {
-            tooltipTitle,
-            tooltipDesc,
+    props: {
+        data: {
+            type: Object,
+            default: () => ({}),
+        },
+
+        isShow: {
+            type: Boolean,
+            default: false,
         }
     },
 }
@@ -42,19 +51,8 @@ export default {
         pointer-events: none;
         transition: .2s ease-in-out opacity;
 
-        &:before {
-            content: "";
-            position: absolute;
-            top: -14px;
-            left: -50px;
-            width: 75px;
-            height: 75px;
-            border-radius: 12px;
-            border: 2px solid $dark-blue;
-            background: url("/src/assets/img/tooltip-img.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            box-shadow: 0 0 4px 2px $orange;
+        &._show {
+            opacity: 1;
         }
     }
 

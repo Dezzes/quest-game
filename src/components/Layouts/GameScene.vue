@@ -9,16 +9,22 @@
             :class="$style.scene"
         />
 
-        <img
-            src="/src/assets/img/columns.png"
-            alt="columns"
-            :class="[$style.column, $style._left]"
-        />
+<!--        <img-->
+<!--            src="/src/assets/img/columns.png"-->
+<!--            alt="columns"-->
+<!--            :class="[$style.column, $style._left]"-->
+<!--        />-->
+
+<!--        <img-->
+<!--            src="/src/assets/img/columns.png"-->
+<!--            alt="columns"-->
+<!--            :class="[$style.column, $style._right]"-->
+<!--        />-->
 
         <img
-            src="/src/assets/img/columns.png"
-            alt="columns"
-            :class="[$style.column, $style._right]"
+            src="/src/assets/img/bridge.png"
+            alt="bridge"
+            :class="$style.bridge"
         />
 
         <slot/>
@@ -67,5 +73,12 @@
             top: 10%;
             left: 10%;
         }
+    }
+
+    .bridge {
+        position: absolute;
+        z-index: 2;
+        bottom: 0;
+        width: 100%;
     }
 </style>
