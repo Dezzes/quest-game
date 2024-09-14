@@ -41,6 +41,7 @@
     .GameScene {
         position: relative;
         width: 1151px;
+        min-width: 1151px;
         height: 987px;
         overflow-x: auto;
         overflow-y: hidden;
