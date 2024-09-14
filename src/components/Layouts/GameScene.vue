@@ -22,6 +22,12 @@
 <!--        />-->
 
         <img
+            src="/src/assets/img/columns.png"
+            alt="columns"
+            :class="[$style.column, $style._left]"
+        />
+
+        <img
             src="/src/assets/img/bridge.png"
             alt="bridge"
             :class="$style.bridge"
@@ -69,6 +75,10 @@
         pointer-events: none;
         user-select: none;
 
+        &._left {
+          z-index: 2;
+        }
+
         &._right {
             z-index: 6;
             top: 10%;
@@ -78,7 +88,7 @@
 
     .bridge {
         position: absolute;
-        z-index: 2;
+        z-index: 3;
         bottom: 0;
         width: 100%;
     }

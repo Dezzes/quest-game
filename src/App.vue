@@ -205,7 +205,7 @@ export default {
 
             if(el) {
                 el.style.animation = 'none';
-                el.style.zIndex = 1;
+                el.style.zIndex = 2;
             }
         },
 
